@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Selektory</title>
+        <meta charset="utf-8"/>
+        <meta name="description" content="selektory" />
+        <meta name="keywords" content="Zadanie,selektory" />
+        <meta name="author" content="Rafał Fatuła" />
+        <meta name="generator" content="atom" />
+        <meta name="robots" content="index,follow" />
+        <style>
+        .pojemnik{
+            width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+            border:1px solid black;
+        }
+        .content{
+            width:799px;
+            display: block;
+            padding: 20px;
+            float:left;
+            border-left: 1px solid black;
+        }
+        .menu{
+            float:left;
+            width: 150px;
+            margin:5px;
+        }
+        .menu>ul{
+            margin:5px;
+            text-align: center;
+            padding:0;
+        }
+        header{
+            border-bottom: 1px solid black;
+        }
+        ul{
+            list-style-type: none;
+            margin-left: 200px;
+            text-align: justify;
+        }
+        li{
+            padding:5px;
+        }
+        footer{
+            border-top: 1px solid black;
+            clear:both;
+        }
+        p{
+            display: block;
+        }
+        .hide{
+            display: inline;
+            color:white;
+        }
+        .hide:hover{
+            color:black;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="pojemnik">
+            <header>
+                <h1>Selektory</h1>
+            </header>
+            <div class="menu">
+                <ul>
+                    <li>
+                        Strona główna
+                    </li>
+                </ul>
+            </div>
+            <div class="content">
+                <p>
+                                    Typy selektorów:
+                </p>
+                <ul>
+                    <li>
+                        Selektor potomka<div class="hide"> - oddziałuje na wszystkie el. umieszczone w nim</div>
+                    </li>
+                    <li>
+                        Selektor dziecka<div class="hide"> - oddziałuje tylko na el. bezpośrednio w nim</div>
+                    </li>
+                    <li>
+                        Selektor brata<div class="hide"> - oddziałuje na el. obok niego</div>
+                    </li>
+                    <li>
+                        Selektor indentyfikatora<div class="hide"> - oddziałuje na el. z identyfikatorem</div>
+                    </li>
+                    <li>
+                        Selektor klasy<div class="hide"> - oddziałuje na el. z klasą</div>
+                    </li>
+                    <li>
+                        Selektor pseudoklasy<div class="hide"> - oddziałuje na el. pseudoklasy(np. po najechaniu)</div>
+                    </li>
+                    <li>
+                        Selektor pseudoelementu<div class="hide"> - oddziałuje na el. pseudoelemntu(np. pierwszej lini)</div>
+                    </li>
+                    <li>
+                        Selektor grupowy<div class="hide"> - oddziałuje na wszystkie wymienione el.</div>
+                    </li>
+                </ul>
+            </div>
+            <footer>
+                Rafał Fatuła 2ID
+            </footer>
+        </div>
+    </body>
+</html>
