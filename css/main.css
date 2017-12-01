@@ -1,13 +1,54 @@
 body{
-  marign:0;
+  margin:0;
   padding:0;
 }
+
+nav>ul{
+    list-style-type: none;
+    margin:0;
+    padding:0;
+    overflow: hidden;
+    background-color: #333;
+    position: fixed;
+    top:0;
+    width: 100%;
+    font-family: 'Nunito', sans-serif;
+}
+nav li{
+    float:left;
+}
+nav a{
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 12px 20px;
+    text-decoration: none;
+}
 header{
-  text-align:center;
+    margin-top: 46px;
+    font-size: 3em;
+    text-align: center;
+    width:100vw;
+    background-image: url("../images/workspace.jpeg");
+    background-size: cover;
+    height:30vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Vollkorn SC', serif;
+
 }
 .content{
   text-align:center;
+  font-family: 'Nunito', sans-serif;
+}
+footer{
+
 }
 footer>ul{
   list-style-type:none;
+}
+footer a{
+    text-decoration: none;
+    color:crimson;
 }
