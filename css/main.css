@@ -1,0 +1,13 @@
+body{
+  marign:0;
+  padding:0;
+}
+header{
+  text-align:center;
+}
+.content{
+  text-align:center;
+}
+footer>ul{
+  list-style-type:none;
+}
