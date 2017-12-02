@@ -36,7 +36,7 @@ header{
     font-size: 3em;
     text-align: center;
     width:100vw;
-    background-image: url("../images/workspace.jpeg");
+    background-image: url("../images/workspace_small.jpeg");
     background-size: cover;
     height:30vh;
     display: flex;
@@ -45,6 +45,8 @@ header{
     font-family: 'ABeeZee', sans-serif;
 }
 .content{
+    margin-top:50px;
+    margin-bottom:50px;
   text-align:center;
   font-family: 'Nunito', sans-serif;
 }
