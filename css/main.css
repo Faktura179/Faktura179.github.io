@@ -24,6 +24,13 @@ nav a{
     padding: 12px 20px;
     text-decoration: none;
 }
+nav a:hover{
+    border: 2px solid #4C0A00;
+    padding:10px 18px;
+}
+.home{
+    background-color: #222;
+}
 header{
     margin-top: 46px;
     font-size: 3em;
@@ -35,8 +42,7 @@ header{
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Vollkorn SC', serif;
-
+    font-family: 'ABeeZee', sans-serif;
 }
 .content{
   text-align:center;
@@ -50,5 +56,5 @@ footer>ul{
 }
 footer a{
     text-decoration: none;
-    color:crimson;
+    color:#4C0A00;
 }
