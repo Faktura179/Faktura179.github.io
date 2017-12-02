@@ -55,6 +55,12 @@ header{
     margin-bottom:50px;
   text-align:center;
   font-family: 'Nunito', sans-serif;
+  height:50%;
+}
+@media (max-width:800px) {
+    .content{
+        font-size: 1.1em;
+    }
 }
 footer{
 
