@@ -56,6 +56,7 @@ header{
   text-align:center;
   font-family: 'Nunito', sans-serif;
   height:50%;
+  background-color:#a5a5a5;
 }
 @media (max-width:800px) {
     .content{
