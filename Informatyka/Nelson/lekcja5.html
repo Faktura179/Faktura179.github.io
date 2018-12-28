@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Posuwanie</title>
+</head>
+<script>
+    var gra
+    document.addEventListener("DOMContentLoaded", function(){
+        gra={
+            img:document.createElement("img"),
+            srcs:["zdjecie.jpg"],
+            menu:document.createElement("div"),
+            board:document.createElement("div"),
+            overlay:document.createElement("div"),
+            sizes:[3,4,5,6],
+            size:3,
+            buttons:[],
+            parts:[],
+            order:[],
+            empty:{x:2,y:2},
+            prevEmpty:{x:-2,y:-2},
+            end: -1,
+            start:0,
+            timer:document.createElement("div"),
+            init:function(){
+                this.img.src=this.srcs[0]
+                document.body.appendChild(this.img)
+                this.menu.classList.add("menu")
+                for(let i =0;i < this.sizes.length; i++){
+                    let button = document.createElement("button")
+                    button.innerHTML=this.sizes[i]+"x"+this.sizes[i]
+                    let size = this.sizes[i]
+                    button.onclick=(( size )=>{return ()=>{this.size=size;this.inside()}})(size)
+                    this.buttons.push(button)
+                    this.menu.appendChild(button)
+                }
+                document.body.appendChild(this.menu)
+                window.setInterval((function(self){return function(){self.time()}})(this),1)
+                document.body.appendChild(this.timer)
+                this.board.classList.add("board")
+                document.body.appendChild(this.board)
+
+                var text = document.createElement("div")
+                text.id="text"
+                text.innerText="Wygrałeś!"
+                this.overlay.id="overlay"
+                this.overlay.appendChild(text)
+                this.overlay.onclick=(function(self){return function(){self.overlayOff()}})(this)
+                document.body.appendChild(this.overlay)
+                this.inside()
+            },
+            inside:function(){
+                this.board.innerHTML=""
+                for(let i = 0; i<this.size;i++){
+                    this.parts[i]=[]
+                    this.order[i]=[]
+                    for(let j = 0; j<this.size;j++){
+                        let div=document.createElement("div")
+                        div.classList.add("square")
+                        div.style.top=(600/this.size)*i+"px"
+                        div.style.left=(600/this.size)*j+"px"
+                        div.style.width=(600/this.size)+"px"
+                        div.style.height=(600/this.size)+"px"
+                        div.style.backgroundImage="url("+this.srcs[0]+")"
+                        div.style.backgroundPositionX=-(600/this.size)*j+"px"
+                        div.style.backgroundPositionY=-(600/this.size)*i+"px"
+                        div.style.backgroundSize="600px 600px"
+                        var that = this
+                        div.onclick=function(e){
+                            e.stopPropagation()
+                            for(let i=0;i<that.parts.length;i++){
+                                var index = that.parts[i].indexOf(this)
+                                if(index!=-1){
+                                    that.swap(index,i)
+                                }
+                            }
+                            that.wygrana()
+                        }
+                        this.board.appendChild(div)
+                        this.parts[i][j]=div
+                        this.order[i][j]=this.size*i+j
+                    }
+                }
+                this.parts[this.size-1][this.size-1].style.background="lightgrey"
+                this.empty.x=this.size-1
+                this.empty.y=this.size-1
+                this.losowanie()
+            },
+            swap:function(x,y){
+                if((this.empty.x==x && this.empty.y==y-1)||(this.empty.x==x && this.empty.y==y+1)||(this.empty.x==x-1 && this.empty.y==y)||(this.empty.x==x+1 && this.empty.y==y)){
+                    var tmpDiv = this.parts[y][x].cloneNode(true)
+                    this.parts[y][x].parentNode.removeChild(this.parts[y][x])
+                    this.parts[y][x]=this.parts[this.empty.y][this.empty.x]
+                    this.parts[this.empty.y][this.empty.x]=tmpDiv
+                    var that = this
+                    tmpDiv.onclick=function(e){
+                        e.stopPropagation()
+                        for(let i=0;i<that.parts.length;i++){
+                            var index = that.parts[i].indexOf(this)
+                            if(index!=-1){
+                                that.swap(index,i)
+                            }
+                        }
+                        that.wygrana()
+                    }
+                    this.board.appendChild(this.parts[this.empty.y][this.empty.x])
+                    var tmpStyle = this.parts[this.empty.y][this.empty.x].cloneNode(true)
+                    var tmpStyle1 = this.parts[y][x].cloneNode(true)
+                    this.parts[this.empty.y][this.empty.x].style.top=tmpStyle1.style.top
+                    this.parts[this.empty.y][this.empty.x].style.left=tmpStyle1.style.left
+                    this.parts[y][x].style.top=tmpStyle.style.top
+                    this.parts[y][x].style.left=tmpStyle.style.left
+
+                    var tmpOrder = this.order[y][x]
+                    this.order[y][x]=this.order[this.empty.y][this.empty.x]
+                    this.order[this.empty.y][this.empty.x]=tmpOrder
+                    
+                    this.prevEmpty.y=this.empty.y
+                    this.prevEmpty.x=this.empty.x
+                    this.empty.y=y
+                    this.empty.x=x
+                }
+            },
+            losowanie:function(){
+                this.end=-1
+                for(let a=0;a<this.size*this.size*10;a++){
+                    setTimeout(()=>{
+                        var x = -1+Math.floor(Math.random()*3)
+                        var y=0
+                        if(x==0){
+                            while(y==0){
+                                y = -1+Math.floor(Math.random()*3)
+                            }
+                        }
+                        while(this.empty.x+x>=this.size || this.empty.y+y>=this.size || this.empty.x+x<0 || this.empty.y+y<0/**/||this.prevEmpty.x==this.empty.x+x||this.empty.y+y==this.prevEmpty.y/**/){
+                            var x = -1+Math.floor(Math.random()*3)
+                            var y=0
+                            if(x==0){
+                                while(y==0){
+                                    y = -1+Math.floor(Math.random()*3)
+                                }
+                            } 
+                        }
+                        this.swap(this.empty.x+x,this.empty.y+y)
+                        if(this.size*this.size*10-1==a){
+                            this.start = window.performance.now()
+                            this.end=0
+                        }
+                    },a*50)
+                }
+            },
+            wygrana:function(){
+                let win=true
+                for(let i =0;i<this.size;i++){
+                    for(let j =0;j<this.size;j++){
+                        if(this.order[i][j]!=this.size*i+j){
+                            win=false
+                        }
+                    }
+                }
+                if(win){
+                    this.end=window.performance.now()
+                    this.overlayOn()
+                }
+            },
+            time:function(){
+                var time
+                if(this.end==-1){
+                    time=0
+                }
+                else if(this.end==0){
+                    time=window.performance.now()-this.start
+                }
+                else{    
+                    time=this.end-this.start
+                }
+                this.timer.innerHTML=time
+                var miliseconds = Math.floor(time)%1000
+                var seconds = (Math.floor(time/1000))%(60)
+                var minutes = (Math.floor(time/(1000*60)))%(60)
+                var hours = (Math.floor(time/(1000*60*60)))%(60)
+                this.timer.innerHTML=hours+":"+minutes+":"+seconds+"."+miliseconds
+            },
+            overlayOff:function(){
+                this.overlay.style.display="none"
+            },
+            overlayOn:function(){
+                this.overlay.style.display="block"
+            }
+        }
+        gra.init()
+
+    })
+</script>
+<style>
+    div{
+        text-align: center;
+        margin-bottom:20px;
+    }
+    img{
+        display: block;
+        width:200px;
+        height:200px;
+        margin:0 auto;
+    }
+    .menu{    
+        display:flex;
+        justify-content: center;
+        margin: auto;
+        margin-top:20px;
+        margin-bottom:20px;
+    }
+    button{
+        text-align: center;
+        margin:10px;
+        width:50px;
+    }
+    .board{
+        position: relative;
+        width:600px;
+        height: 600px;
+        border:1px solid black;
+        margin:auto;
+    }
+    .square{
+        position: absolute;
+        box-sizing: border-box;
+        border:1px solid black;
+    }
+    #overlay {
+        position: fixed;
+        display: none;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0,0,0,0.5);
+        z-index: 2;
+        cursor: pointer;
+    }
+
+    #text{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        font-size: 50px;
+        color: white;
+        transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+    }
+</style>
+<body>
+    
+</body>
+</html>

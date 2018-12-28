@@ -7,7 +7,7 @@
     <title>Document</title>
     <script>
         document.write("<h1><strong>Witaj Javascript!</strong></h1><br>");
-        /*for (let i = -100; i < 101; i++) {
+        for (let i = -100; i < 101; i++) {
             document.write(i, "<br>");
         }
         for (let i = 50; i > 0; i--) {
@@ -53,7 +53,7 @@
                 console.log(i);
             }
         }
-*/
+
         let liczba_x = prompt("Podaj liczbę: ");
         
         for(let i = 0; i <liczba_x; i++){
@@ -124,6 +124,9 @@
         document.write(suma);
 
         let pierwsza =true;
+        if(liczba_x==1){
+            pierwsza=false;
+        }
         for(let i =2;i<liczba_x/2+1;i++){
             if(liczba_x%i==0){
                 pierwsza=false;
@@ -136,9 +139,9 @@
         }
 
         document.write("<table>")
-        for(let i=0;i<21;i++){
+        for(let i=0;i<=liczba_x;i++){
             document.write("<tr>")
-            for(let j=0; j<21;j++){
+            for(let j=0; j<=liczba_x;j++){
                 if(i==0 && j==0){
                     document.write("<td> </td>")
                     continue
